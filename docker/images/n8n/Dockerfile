@@ -8,21 +8,25 @@ ARG TARGETPLATFORM
 # ==============================================================================
 FROM n8nio/base:${NODE_VERSION} AS system-deps
 
-# ============================================================================== 
-# STAGE 2: Application Artifact Processor
-# ============================================================================== 
+# STAGE 2: Application Artifact Processor  
+# ==============================================================================  
 FROM node:18-alpine AS app-artifact-processor
 WORKDIR /app
 
-# Copy package files first and install dependencies
-COPY package.json ./
-RUN npm install
+# Install Yarn to handle workspace:* dependencies
+RUN npm install -g yarn
 
-# Copy the rest of the source code
+# Copy only package.json and yarn.lock if present
+COPY package.json ./ 
+COPY yarn.lock ./ 
+
+# Install dependencies with Yarn
+RUN yarn install --frozen-lockfile
+
+# Copy all source code and build
 COPY . .
-
-# Build n8n inside the image
-RUN npm run build
+RUN yarn build
+# --------------------------------------------
 
 
 # ==============================================================================
