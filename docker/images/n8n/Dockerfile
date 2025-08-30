@@ -8,12 +8,22 @@ ARG TARGETPLATFORM
 # ==============================================================================
 FROM n8nio/base:${NODE_VERSION} AS system-deps
 
-# ==============================================================================
+# ============================================================================== 
 # STAGE 2: Application Artifact Processor
-# ==============================================================================
-FROM alpine:3.22.0 AS app-artifact-processor
+# ============================================================================== 
+FROM node:18-alpine AS app-artifact-processor
+WORKDIR /app
 
-COPY ./compiled /app/
+# Copy package files first and install dependencies
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copy the rest of the source code
+COPY . .
+
+# Build n8n inside the image
+RUN npm run build
+
 
 # ==============================================================================
 # STAGE 3: Task Runner Launcher
@@ -50,7 +60,6 @@ ENV NODE_ICU_DATA=/usr/local/lib/node_modules/full-icu
 ENV SHELL=/bin/sh
 
 WORKDIR /home/node
-
 COPY --from=app-artifact-processor /app /usr/local/lib/node_modules/n8n
 COPY --from=launcher-downloader /launcher-bin/* /usr/local/bin/
 COPY docker/images/n8n/docker-entrypoint.sh /
