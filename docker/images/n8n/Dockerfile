@@ -18,10 +18,9 @@ RUN npm install -g yarn
 
 # Copy only package.json and yarn.lock if present
 COPY package.json ./ 
-COPY yarn.lock ./ 
 
 # Install dependencies with Yarn
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Copy all source code and build
 COPY . .
