@@ -13,8 +13,10 @@ FROM n8nio/base:${NODE_VERSION} AS system-deps
 FROM node:18-alpine AS app-artifact-processor
 WORKDIR /app
 
-# Install Yarn to handle workspace:* dependencies
-RUN npm install -g yarn
+# Install build tools & yarn
+RUN apk add --no-cache bash curl python3 make g++ \
+    && npm install -g yarn \
+    && apk del make g++ python3
 
 # Copy only package.json and yarn.lock if present
 COPY package.json ./ 
