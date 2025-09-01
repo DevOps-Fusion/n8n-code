@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: n8n
+  description: n8n workflow automation service
+  annotations:
+    backstage.io/managed-by-location: url:https://github.com/DevOps-Fusion/n8n-code/catalog.yaml
+    jenkins.io/job-name: "n8n-pipeline"
+spec:
+  type: service
+  lifecycle: production
+  owner: DevOps-Fusion
+  repository: https://github.com/DevOps-Fusion/n8n-code
+  system: devops-fusion-system
+  links:
+    - url: http://54.242.131.80:8080/job/n8n-pipeline/
+      title: Jenkins Pipeline
+    - url: https://100.24.37.22:30138//namespace/devopstask/workloads
+      title: Kubernetes Deployment
