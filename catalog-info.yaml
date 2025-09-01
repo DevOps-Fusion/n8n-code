@@ -6,7 +6,7 @@ metadata:
   annotations:
     backstage.io/managed-by-location: url:https://raw.githubusercontent.com/DevOps-Fusion/n8n-code/master/catalog-info.yaml
     jenkins.io/job-full-name: n8n-pipeline
-		jenkins.io/job-url: http://54.242.131.80:8080/job/n8n-pipeline/
+    jenkins.io/job-url: 'http://54.242.131.80:8080/job/n8n-pipeline/'
 spec:
   type: service
   lifecycle: production
