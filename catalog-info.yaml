@@ -4,8 +4,8 @@ metadata:
   name: n8n
   description: n8n workflow automation service
   annotations:
-    backstage.io/managed-by-location: url:https://github.com/DevOps-Fusion/n8n-code/catalog-info.yaml
-    jenkins.io/job-name: "n8n-pipeline"
+    backstage.io/managed-by-location: url:https://raw.githubusercontent.com/DevOps-Fusion/n8n-code/catalog-info.yaml
+    jenkins.io/job-name: n8n-pipeline
     jenkins.io/job-url: 'http://54.242.131.80:8080/job/n8n-pipeline/'
 spec:
   type: service
